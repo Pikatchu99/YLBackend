@@ -1,0 +1,17 @@
+﻿Flask
+Werkzeug
+flask_cors
+gunicorn
+validate_email
+nose
+requests
+argparse
+uuid
+flask-swagger-ui
+pymongo
+email_validator
+bcrypt
+pyjwt
+cloudinary
+azure-cognitiveservices-vision-computervision
+msrest

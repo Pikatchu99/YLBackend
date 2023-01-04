@@ -1,0 +1,1260 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "description": "sean",
+        "version": "1.0.0",
+        "title": "Seans-Python3-Flask-rest-Boilerplate",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "servers": [{
+        "url": "/"
+    }],
+    "tags": [{
+        "name": "Authentification request",
+        "description": "All the authentifications requests"
+    }, {
+        "name": "Proprietaire request",
+        "description": "All the proprietaire requests"
+    }, {
+        "name": "Locataire request",
+        "description": "All the proprietaire requests"
+    }, {
+        "name": "Demarcheur request",
+        "description": "All the demarcheur requests"
+    }, {
+        "name": "Admin request",
+        "description": "All the admin requests"
+    }, {
+        "name": "Useful request",
+        "description": "All useful requests"
+    }],
+
+    "paths": {
+        "/auth/register": {
+            "post": {
+                "tags": [
+                    "Authentification request"
+                ],
+                "summary": "Create a new user",
+                "requestBody": {
+                    "description": "register request",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/register"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/register"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "Authentification request"
+                ],
+                "summary": "log a user",
+                "requestBody": {
+                    "description": "login request",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/login"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/login"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "tags": [
+                    "Authentification request"
+                ],
+                "summary": "Déconnecter l'utilisateur",
+                "responses": {
+                    "200": {
+                        "description": "ok"
+                    },
+                    "400": {
+                        "description": "Cette erreur se produit quand il y'a un problème côté client"
+                    },
+                    "401": {
+                        "description": "Cette erreur se produit quand l'utilisateur n'est pas autorisé"
+                    },
+                    "404": {
+                        "description": "Cette erreur se produit quand la ressource demandée n'a pas été trouvée"
+                    }
+                }
+            }
+        },
+        "/appart/details": {
+            "get": {
+                "parameters": [{
+                    "name": "appart_id",
+                    "in": "query",
+                    "required": false,
+                    "description": "l'id de l'appartement",
+                    "type": "string"
+                }],
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "tags": [
+                    "Appart request"
+                ],
+                "summary": "Permet de voir les details d'un appartement",
+                "responses": {
+                    "200": {
+                        "description": "ok"
+                    },
+                    "400": {
+                        "description": "Cette erreur se produit quand il y'a un problème côté client"
+                    },
+                    "401": {
+                        "description": "Cette erreur se produit quand l'utilisateur n'est pas autorisé"
+                    },
+                    "404": {
+                        "description": "Cette erreur se produit quand la ressource demandée n'a pas été trouvée"
+                    }
+                }
+            }
+        },
+        "/proprietaire/appart/ask/demarcheur": {
+            "post": {
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "tags": [
+                    "Proprietaire request"
+                ],
+                "summary": "Ask demarcheur",
+                "requestBody": {
+                    "description": "Ask demarcheur",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/demarcheur_ask"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/demarcheur_ask"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/proprietaire/appart/all": {
+            "get": {
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "tags": [
+                    "Proprietaire request"
+                ],
+                "summary": "Get all appart",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {}
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/proprietaire/appart/detail": {
+            "post": {
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "tags": [
+                    "Proprietaire request"
+                ],
+                "summary": "Get one appart details",
+                "requestBody": {
+                    "description": "Get one appart details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/remove_appart"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/remove_appart"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/proprietaire/appart/new": {
+            "post": {
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "tags": [
+                    "Proprietaire request"
+                ],
+                "summary": "Create a new appart",
+                "requestBody": {
+                    "description": "Create new appart request",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/appart_new"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/appart_new"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/proprietaire/appart/update": {
+            "post": {
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "tags": [
+                    "Proprietaire request"
+                ],
+                "summary": "Update appart detail",
+                "requestBody": {
+                    "description": "Update appart detail",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/appart_update"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/appart_update"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/proprietaire/appart/remove": {
+            "delete": {
+                "parameters": [{
+                    "name": "appart_id",
+                    "in": "query",
+                    "required": false,
+                    "description": "l'id de l'appartement",
+                    "type": "string"
+                }],
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "tags": [
+                    "Proprietaire request"
+                ],
+                "summary": "remove appart detail",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/remove_appart"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/demarcheur/request/all": {
+            "get": {
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "tags": [
+                    "Demarcheur request"
+                ],
+                "summary": "Get all request",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": ""
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/demarcheur/all": {
+            "get": {
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "tags": [
+                    "Demarcheur request"
+                ],
+                "summary": "Get all demarcheur list",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": ""
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/demarcheur/request/answer": {
+            "post": {
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "tags": [
+                    "Demarcheur request"
+                ],
+                "summary": "Answer to demande",
+                "requestBody": {
+                    "description": "Answer to demande. The answer is 'accepted' or 'rejected'",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/request_answer"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/request_answer"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/demarcheur/appart/all": {
+            "get": {
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "tags": [
+                    "Demarcheur request"
+                ],
+                "summary": "Get all appart",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": ""
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/demarcheur/invitation/code": {
+            "get": {
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "tags": [
+                    "Demarcheur request"
+                ],
+                "summary": "Get demarcheur code ",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": ""
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/demarcheur/invitation/appart/all": {
+            "get": {
+                "parameters": [{
+                    "name": "demarcheur_code",
+                    "in": "query",
+                    "required": false,
+                    "description": "le code du demarcheur",
+                    "type": "string"
+                }],
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "tags": [
+                    "Demarcheur request"
+                ],
+                "summary": "Permet de voir recuperer les appartements gere par un demarcheur",
+                "responses": {
+                    "200": {
+                        "description": "ok"
+                    },
+                    "400": {
+                        "description": "Cette erreur se produit quand il y'a un problème côté client"
+                    },
+                    "401": {
+                        "description": "Cette erreur se produit quand l'utilisateur n'est pas autorisé"
+                    },
+                    "404": {
+                        "description": "Cette erreur se produit quand la ressource demandée n'a pas été trouvée"
+                    }
+                }
+            }
+        },
+        "/locataire/appart/all": {
+            "get": {
+                "tags": [
+                    "Locataire request"
+                ],
+                "summary": "Permet de voir la liste des appartements",
+                "responses": {
+                    "200": {
+                        "description": "ok"
+                    },
+                    "400": {
+                        "description": "Cette erreur se produit quand il y'a un problème côté client"
+                    },
+                    "401": {
+                        "description": "Cette erreur se produit quand l'utilisateur n'est pas autorisé"
+                    },
+                    "404": {
+                        "description": "Cette erreur se produit quand la ressource demandée n'a pas été trouvée"
+                    }
+                }
+            }
+        },
+        "/locataire/appart/search": {
+            "post": {
+                "tags": [
+                    "Locataire request"
+                ],
+                "summary": "research an appart",
+                "requestBody": {
+                    "description": "Search an appart that math some criteria",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/search_appart"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/search_appart"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/locataire/appart/group/create": {
+            "post": {
+                "tags": [
+                    "Locataire request"
+                ],
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "summary": "research an appart",
+                "requestBody": {
+                    "description": "Search an appart that math some criteria",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/group"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/group"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/locataire/appart/group/join": {
+            "post": {
+                "tags": [
+                    "Locataire request"
+                ],
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "summary": "research an appart",
+                "requestBody": {
+                    "description": "Search an appart that math some criteria",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/join"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/join"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/locataire/appart/group/leave": {
+            "post": {
+                "tags": [
+                    "Locataire request"
+                ],
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "summary": "leave group",
+                "requestBody": {
+                    "description": "leave group",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/join"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/join"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/locataire/appart/groups/my": {
+            "get": {
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "tags": [
+                    "Locataire request"
+                ],
+                "summary": "Permet de voir la liste des groupes auxquel j'appartient",
+                "responses": {
+                    "200": {
+                        "description": "ok"
+                    },
+                    "400": {
+                        "description": "Cette erreur se produit quand il y'a un problème côté client"
+                    },
+                    "401": {
+                        "description": "Cette erreur se produit quand l'utilisateur n'est pas autorisé"
+                    },
+                    "404": {
+                        "description": "Cette erreur se produit quand la ressource demandée n'a pas été trouvée"
+                    }
+                }
+            }
+        },
+        "/locataire/groups/for/appart": {
+            "get": {
+                "parameters": [{
+                    "name": "appart_id",
+                    "in": "query",
+                    "required": false,
+                    "description": "l'id de l'appartement",
+                    "type": "string"
+                }],
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "tags": [
+                    "Locataire request"
+                ],
+                "summary": "Permet de voir la liste des groupes par appartement",
+                "responses": {
+                    "200": {
+                        "description": "ok"
+                    },
+                    "400": {
+                        "description": "Cette erreur se produit quand il y'a un problème côté client"
+                    },
+                    "401": {
+                        "description": "Cette erreur se produit quand l'utilisateur n'est pas autorisé"
+                    },
+                    "404": {
+                        "description": "Cette erreur se produit quand la ressource demandée n'a pas été trouvée"
+                    }
+                }
+            }
+        },
+        "/admin/users/all": {
+            "get": {
+                "parameters": [{
+                        "name": "locataire",
+                        "in": "query",
+                        "required": false,
+                        "description": "true ou false pour l'activation du filtre",
+                        "type": "bool"
+                    },
+                    {
+                        "name": "proprietaire",
+                        "in": "query",
+                        "required": false,
+                        "description": "true ou false pour l'activation du filtre",
+                        "type": "bool"
+                    }, {
+                        "name": "demarcheur",
+                        "in": "query",
+                        "required": false,
+                        "description": "true ou false pour l'activation du filtre",
+                        "type": "bool"
+                    }
+                ],
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "tags": [
+                    "Admin request"
+                ],
+                "summary": "Permet de voir la liste des utilisateurs",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "$ref": "#/components/schemas/users"
+                        }
+                    },
+                    "400": {
+                        "description": "Cette erreur se produit quand il y'a un problème côté client"
+                    },
+                    "401": {
+                        "description": "Cette erreur se produit quand l'utilisateur n'est pas autorisé"
+                    },
+                    "404": {
+                        "description": "Cette erreur se produit quand la ressource demandée n'a pas été trouvée"
+                    }
+                }
+            }
+        },
+        "/admin/apparts/all": {
+            "get": {
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "tags": [
+                    "Admin request"
+                ],
+                "summary": "Permet de voir la liste des appartements",
+                "responses": {
+                    "200": {
+                        "description": "ok"
+                    },
+                    "400": {
+                        "description": "Cette erreur se produit quand il y'a un problème côté client"
+                    },
+                    "401": {
+                        "description": "Cette erreur se produit quand l'utilisateur n'est pas autorisé"
+                    },
+                    "404": {
+                        "description": "Cette erreur se produit quand la ressource demandée n'a pas été trouvée"
+                    }
+                }
+            }
+        },
+        "/admin/appart/certificate": {
+            "post": {
+                "tags": [
+                    "Admin request"
+                ],
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "summary": "Certified  an appart",
+                "requestBody": {
+                    "description": "certified an appart",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/certificate_appart"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/certificate_appart"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/tcd/all": {
+            "get": {
+                "tags": [
+                    "Useful request"
+                ],
+                "summary": "Permet de voir la liste de tout les pays et ses details",
+                "responses": {
+                    "200": {
+                        "description": "ok"
+                    },
+                    "400": {
+                        "description": "Cette erreur se produit quand il y'a un problème côté client"
+                    },
+                    "401": {
+                        "description": "Cette erreur se produit quand l'utilisateur n'est pas autorisé"
+                    },
+                    "404": {
+                        "description": "Cette erreur se produit quand la ressource demandée n'a pas été trouvée"
+                    }
+                }
+            }
+        },
+        "/user/details": {
+            "get": {
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "query",
+                    "required": false,
+                    "description": "l'id de l'utilisateur",
+                    "type": "string"
+                }],
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "tags": [
+                    "Useful request"
+                ],
+                "summary": "Permet de voir les details d'un utilisateur ",
+                "responses": {
+                    "200": {
+                        "description": "ok"
+                    },
+                    "400": {
+                        "description": "Cette erreur se produit quand il y'a un problème côté client"
+                    },
+                    "401": {
+                        "description": "Cette erreur se produit quand l'utilisateur n'est pas autorisé"
+                    },
+                    "404": {
+                        "description": "Cette erreur se produit quand la ressource demandée n'a pas été trouvée"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        },
+        "schemas": {
+
+            "register": {
+                "type": "object",
+                "properties": {
+                    "phone": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "firstname": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "surname": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "role": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "country": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "town": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "district": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "password": {
+                        "type": "string",
+                        "format": "string"
+                    }
+                }
+            },
+            "login": {
+                "type": "object",
+                "properties": {
+                    "phone_email": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "password": {
+                        "type": "string",
+                        "format": "string"
+                    }
+                }
+            },
+            "remove_appart": {
+                "type": "object",
+                "properties": {
+                    "appart_id": {
+                        "type": "string",
+                        "format": "string"
+                    }
+                }
+            },
+            "appart_new": {
+                "type": "object",
+                "properties": {
+                    "certified": {
+                        "type": "bool",
+                        "format": "string",
+                        "example": false
+                    },
+                    "demarcheur_id": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "caption": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "country": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "town": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "district": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "description": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "specifications": {
+                        "type": "object",
+                        "format": "object",
+                        "example": {
+                            "room": 1,
+                            "shower": 1,
+                            "toilet": 1,
+                            "living room": 1,
+                            "kitchen": 1,
+                            "veranda": 1,
+                            "backyard": 1,
+                            "garage": 1
+                        }
+                    },
+                    "price": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "25.000 fcfa"
+                    },
+                    "is_occupied": {
+                        "type": "bool",
+                        "format": "string",
+                        "example": false
+                    },
+                    "rent": {
+                        "type": "bool",
+                        "format": "string",
+                        "example": true
+                    },
+                    "co-rent": {
+                        "type": "bool",
+                        "format": "string",
+                        "example": true
+                    },
+                    "interested_in_co_renting": {
+                        "type": "array",
+                        "format": "array",
+                        "example": ["id_user"]
+                    },
+                    "filenames": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "format": "binary"
+                        }
+                    }
+                }
+            },
+            "appart_update": {
+                "type": "object",
+                "properties": {
+                    "appart_id": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "demarcheur_id": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "caption": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "country": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "town": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "district": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "description": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "specifications": {
+                        "type": "object",
+                        "format": "object",
+                        "example": {
+                            "room": 1,
+                            "shower": 1,
+                            "toilet": 1,
+                            "living room": 1,
+                            "kitchen": 1,
+                            "veranda": 1,
+                            "backyard": 1,
+                            "garage": 1
+                        }
+                    },
+                    "price": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "25.000 fcfa"
+                    },
+                    "is_occupied": {
+                        "type": "bool",
+                        "format": "string",
+                        "example": false
+                    },
+                    "rent": {
+                        "type": "bool",
+                        "format": "string",
+                        "example": true
+                    },
+                    "co-rent": {
+                        "type": "bool",
+                        "format": "string",
+                        "example": true
+                    },
+                    "interested_in_co_renting": {
+                        "type": "array",
+                        "format": "array",
+                        "example": ["id_user"]
+                    }
+                }
+            },
+            "demarcheur_ask": {
+                "type": "object",
+                "properties": {
+                    "demarcheur_id": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "appart_id": {
+                        "type": "string",
+                        "format": "string"
+                    }
+                }
+            },
+            "request_answer": {
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "answer": {
+                        "type": "string",
+                        "format": "string"
+                    }
+                }
+            },
+            "group": {
+                "type": "object",
+                "properties": {
+                    "appart_id": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "groupe_name": {
+                        "type": "string",
+                        "format": "string"
+                    }
+                }
+            },
+            "certificate_appart": {
+                "type": "object",
+                "properties": {
+                    "appart_id": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "certified": {
+                        "type": "bool",
+                        "format": "bool",
+                        "example": true
+                    }
+                }
+            },
+            "join": {
+                "type": "object",
+                "properties": {
+                    "group_id": {
+                        "type": "string",
+                        "format": "string"
+                    }
+                }
+            },
+            "search_appart": {
+                "type": "object",
+                "properties": {
+                    "country": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "town": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "district": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "specifications": {
+                        "type": "object",
+                        "format": "object",
+                        "example": {
+                            "room": 1,
+                            "shower": 1,
+                            "toilet": 1,
+                            "living room": 1,
+                            "kitchen": 1,
+                            "veranda": 1,
+                            "backyard": 1,
+                            "garage": 1
+                        }
+                    },
+                    "min_price": {
+                        "type": "int",
+                        "format": "string",
+                        "example": 25000
+                    },
+                    "max_price": {
+                        "type": "int",
+                        "format": "string",
+                        "example": 30000
+                    }
+                }
+            },
+            "users": {
+                "type": "object",
+                "properties": {
+                    "locataire": {
+                        "type": "bool",
+                        "format": "bool",
+                        "example": true
+                    },
+                    "proprietaire": {
+                        "type": "bool",
+                        "format": "bool",
+                        "example": true
+                    },
+                    "demarcheur": {
+                        "type": "bool",
+                        "format": "bool",
+                        "example": true
+                    }
+                }
+            }
+        }
+    }
+}
